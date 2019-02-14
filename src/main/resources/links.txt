@@ -1,0 +1,20 @@
+
+--Spring Boot H2 Database Example with Hibernate
+https://www.devglan.com/spring-boot/spring-boot-h2-database-example
+
+--Hibernate quick start example
+https://www.logicbig.com/tutorials/misc/hibernate/getting-started.html
+
+--Spring MVC Hibernate MySQL Integration CRUD Example Tutorial
+https://www.journaldev.com/3531/spring-mvc-hibernate-mysql-integration-crud-example-tutorial
+
+https://www.baeldung.com/hibernate-4-spring
+
+https://habr.com/ru/post/255829/
+
+https://www.journaldev.com/14476/spring-mvc-example
+
+https://www.javacodegeeks.com/2018/04/spring-hibernate-tutorial.html
+
+https://www.mkyong.com/spring/maven-spring-hibernate-mysql-example/
+
