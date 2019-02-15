@@ -20,4 +20,9 @@ public class UserController {
         return ResponseEntity.ok("Hello " + name);
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ResponseEntity<String> getHome(@RequestParam(value = "name", defaultValue = "User") String name){
+        return ResponseEntity.ok("Hello " + name);
+    }
+
 }
