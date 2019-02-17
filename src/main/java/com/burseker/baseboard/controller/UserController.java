@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -16,11 +15,21 @@ import java.util.Date;
 @Controller
 public class UserController {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @RequestMapping(value = "/greetpage", method = RequestMethod.GET)
     public ResponseEntity<String> getPageName(){
         return ResponseEntity.ok("Hello greet page");
+    }
+
+    @RequestMapping(value = "/loggertest", method = RequestMethod.GET)
+    public ResponseEntity<String> loggerTest(){
+        logger.trace("A TRACE Message");
+        logger.debug("A DEBUG Message");
+        logger.info("An INFO Message");
+        logger.warn("A WARN Message");
+        logger.error("An ERROR Message");
+        return ResponseEntity.ok("All logger levels had been used");
     }
 
     @RequestMapping(value = "/greetbyname", method = RequestMethod.GET)
@@ -30,13 +39,7 @@ public class UserController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getHome(Model model, @RequestParam(value = "name", defaultValue = "User") String name){
-
-        logger.trace("A TRACE Message");
-        logger.debug("A DEBUG Message");
-        logger.info("An INFO Message");
-        logger.warn("A WARN Message");
-        logger.error("An ERROR Message");
-
+        logger.trace("we are home");
         DateFormat dateFormat = DateFormat.getDateTimeInstance();
         model.addAttribute("serverTime", dateFormat.format(new Date()));
         model.addAttribute("toUserMessage", "Hello " + name + "!");
