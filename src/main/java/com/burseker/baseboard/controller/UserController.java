@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @Controller
 public class UserController {
@@ -40,7 +41,7 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getHome(Model model, @RequestParam(value = "name", defaultValue = "User") String name){
         logger.trace("we are home");
-        DateFormat dateFormat = DateFormat.getDateTimeInstance();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.getDefault());
         model.addAttribute("serverTime", dateFormat.format(new Date()));
         model.addAttribute("toUserMessage", "Hello " + name + "!");
         return "home.html";

@@ -48,6 +48,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-in
 - [Spring with Thymeleaf Pagination for a List](http://www.baeldung.com/spring-thymeleaf-pagination)
 - [Working with Select and Option in Thymeleaf](http://www.baeldung.com/thymeleaf-select-option)
 - [Working With Custom HTML Attributes in Thymeleaf](https://www.baeldung.com/thymeleaf-custom-html-attributes)
+- [Guide to Internationalization in Spring Boot](https://www.baeldung.com/spring-boot-internationalization)
 
 ### Build the Project
 
