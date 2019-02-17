@@ -39,7 +39,7 @@ public class UserController {
 
         DateFormat dateFormat = DateFormat.getDateTimeInstance();
         model.addAttribute("serverTime", dateFormat.format(new Date()));
-        model.addAttribute("toUserMessage", "Hello" + name);
+        model.addAttribute("toUserMessage", "Hello " + name + "!");
         return "home.html";
     }
 

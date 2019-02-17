@@ -8,9 +8,7 @@
 	<h1>
 		<span th:text="#{welcome.message}" />
 	</h1>
-	<p>
-		Current time is <span th:text="${serverTime}" />
-	</p>
+
 	<p>
 		<span th:text="${toUserMessage}" />
 	<p>
@@ -32,5 +30,9 @@
 			<!--<td><a th:href="@{/registerCourse}" th:text="#{msg.CourseRegistration}" /></td>-->
 		<!--</tr>-->
 	<!--</table>-->
+
+    <p>
+        Current time is <span th:text="${serverTime}" />
+    </p>
 </body>
 </html>
