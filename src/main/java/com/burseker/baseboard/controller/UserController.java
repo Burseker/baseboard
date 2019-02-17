@@ -4,10 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 @Controller
 public class UserController {
@@ -25,7 +29,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<String> getHome(@RequestParam(value = "name", defaultValue = "User") String name){
+    public String getHome(Model model, @RequestParam(value = "name", defaultValue = "User") String name){
 
         logger.trace("A TRACE Message");
         logger.debug("A DEBUG Message");
@@ -33,7 +37,10 @@ public class UserController {
         logger.warn("A WARN Message");
         logger.error("An ERROR Message");
 
-        return ResponseEntity.ok("Hello " + name);
+        DateFormat dateFormat = DateFormat.getDateTimeInstance();
+        model.addAttribute("serverTime", dateFormat.format(new Date()));
+        model.addAttribute("toUserMessage", "Hello" + name);
+        return "home.html";
     }
 
 }
