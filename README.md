@@ -33,6 +33,11 @@ https://www.mkyong.com/spring/maven-spring-hibernate-mysql-example/
 
 https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
 
+https://easyjava.ru/data/
+
+-- link to big book about hibernate old style
+http://www.dil.univ-mrs.fr/~massat/docs/hibernate-2/reference/ru/html_single/#preface
+
 - [Introduction to Using Thymeleaf in Spring](http://www.baeldung.com/thymeleaf-in-spring-mvc)
 - [CSRF Protection with Spring MVC and Thymeleaf](http://www.baeldung.com/csrf-thymeleaf-with-spring-security)
 - [Thymeleaf: Custom Layout Dialect](http://www.baeldung.com/thymeleaf-spring-layouts)
