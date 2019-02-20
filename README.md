@@ -33,6 +33,11 @@ https://www.mkyong.com/spring/maven-spring-hibernate-mysql-example/
 
 https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
 
+--about bean connection in spring framework
+https://dzone.com/articles/playing-sround-with-spring-bean-configuration
+https://www.sourceallies.com/2011/08/spring-injection-with-resource-and-autowired/
+
+--a lot of articles about DB and usage
 https://easyjava.ru/data/
 
 -- link to big book about hibernate old style

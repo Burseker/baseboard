@@ -1,7 +1,10 @@
 package com.burseker.baseboard.controller;
 
+import com.burseker.baseboard.model.Customer;
+import com.burseker.baseboard.sevice.BankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +14,60 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
 public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    @Autowired
+    private BankService bankService;
+
+
+    @RequestMapping(value = "/customersliststring", method = RequestMethod.GET)
+    public ResponseEntity<String> customersListString(Model model, @RequestParam(value = "name", defaultValue = "User") String name){
+        logger.trace("request for customers");
+        StringBuilder sb = new StringBuilder();
+        for ( Customer c : bankService.getCustomers())
+            sb.append(c).append("\n\r");
+        return ResponseEntity.ok(sb.toString());
+    }
+
+
+    @RequestMapping(value = "/customerslistraw", method = RequestMethod.GET)
+    public ResponseEntity<List<Customer>> customersListRaw(Model model, @RequestParam(value = "name", defaultValue = "User") String name){
+        logger.trace("request for customers");
+        return ResponseEntity.ok(bankService.getCustomers());
+    }
+
+    @RequestMapping(value = "/addfixcustomers", method = RequestMethod.GET)
+    public ResponseEntity<String> addCustomer(){
+
+        Customer customer = new Customer();
+
+        customer.setfName("Ivan");
+        customer.setlName("Draga");
+        customer.setPassportId("2134324234");
+        bankService.setCustomer(customer);
+        logger.trace("Customer added: " + customer);
+
+        customer.setfName("Maria");
+        customer.setlName("Rasputina");
+        customer.setPassportId("21342349090");
+        bankService.setCustomer(customer);
+        logger.trace("Customer added: " + customer);
+
+        customer.setfName("Jerar");
+        customer.setlName("Pratarar");
+        customer.setPassportId("1112223339");
+        bankService.setCustomer(customer);
+        logger.trace("Customer added: " + customer);
+
+        return ResponseEntity.ok("3 customers added");
+    }
+
 
     @RequestMapping(value = "/greetpage", method = RequestMethod.GET)
     public ResponseEntity<String> getPageName(){
