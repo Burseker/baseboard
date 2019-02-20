@@ -6,12 +6,13 @@ import javax.persistence.*;
 @Table(name = "customer",
     indexes = {@Index(
             name = "j_passport_idx",
-            columnList = "passport_id", unique = false
+            columnList = "passport_id", unique = true
     )},
     uniqueConstraints = {@UniqueConstraint(
             columnNames = {"cust_id", "passport_id"}
     )}
 )
+//@Table(name = "customer")
 public class Customer {
     @Id
     @Column

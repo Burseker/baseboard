@@ -46,21 +46,39 @@ public class UserController {
     public ResponseEntity<String> addCustomer(){
 
         Customer customer = new Customer();
-
+        //customer.setCust_id(0);
         customer.setfName("Ivan");
         customer.setlName("Draga");
         customer.setPassportId("2134324234");
         bankService.setCustomer(customer);
         logger.trace("Customer added: " + customer);
 
+        customer = new Customer();
+        //customer.setCust_id(1);
         customer.setfName("Maria");
         customer.setlName("Rasputina");
-        customer.setPassportId("21342349090");
+        customer.setPassportId("2134234900");
         bankService.setCustomer(customer);
         logger.trace("Customer added: " + customer);
 
+        customer = new Customer();
+        //customer.setCust_id(2);
         customer.setfName("Jerar");
         customer.setlName("Pratarar");
+        customer.setPassportId("1112223339");
+        bankService.setCustomer(customer);
+        logger.trace("Customer added: " + customer);
+
+        customer = new Customer();
+        customer.setfName("Maun");
+        customer.setlName("Ktulh");
+        customer.setPassportId("23339213345345");
+        bankService.setCustomer(customer);
+        logger.trace("Customer added: " + customer);
+
+        customer = new Customer();
+        customer.setfName("Kopper");
+        customer.setlName("Fild");
         customer.setPassportId("1112223339");
         bankService.setCustomer(customer);
         logger.trace("Customer added: " + customer);
