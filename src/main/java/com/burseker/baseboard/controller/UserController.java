@@ -27,19 +27,48 @@ public class UserController {
 
 
     @RequestMapping(value = "/customersliststring", method = RequestMethod.GET)
-    public ResponseEntity<String> customersListString(Model model, @RequestParam(value = "name", defaultValue = "User") String name){
-        logger.trace("request for customers");
-        StringBuilder sb = new StringBuilder();
-        for ( Customer c : bankService.getCustomers())
-            sb.append(c).append("\n\r");
-        return ResponseEntity.ok(sb.toString());
+    public String customersListString(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+        logger.trace("page request for customers");
+        model.addAttribute("customers", bankService.getCustomers());
+        return "customer_table.html";
     }
 
 
     @RequestMapping(value = "/customerslistraw", method = RequestMethod.GET)
     public ResponseEntity<List<Customer>> customersListRaw(Model model, @RequestParam(value = "name", defaultValue = "User") String name){
-        logger.trace("request for customers");
+        logger.trace("raw request for customers");
         return ResponseEntity.ok(bankService.getCustomers());
+    }
+
+
+
+    @RequestMapping(value = "/greetpage", method = RequestMethod.GET)
+    public ResponseEntity<String> getPageName(){
+        return ResponseEntity.ok("Hello greet page");
+    }
+
+    @RequestMapping(value = "/loggertest", method = RequestMethod.GET)
+    public ResponseEntity<String> loggerTest(){
+        logger.trace("A TRACE Message");
+        logger.debug("A DEBUG Message");
+        logger.info("An INFO Message");
+        logger.warn("A WARN Message");
+        logger.error("An ERROR Message");
+        return ResponseEntity.ok("All logger levels had been used");
+    }
+
+    @RequestMapping(value = "/greetbyname", method = RequestMethod.GET)
+    public ResponseEntity<String> getGreetingsByName(@RequestParam(value = "name", defaultValue = "User") String name){
+        return ResponseEntity.ok("Hello " + name);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String getHome(Model model, @RequestParam(value = "name", defaultValue = "User") String name){
+        logger.trace("we are home");
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.getDefault());
+        model.addAttribute("serverTime", dateFormat.format(new Date()));
+        model.addAttribute("toUserMessage", "Hello " + name + "!");
+        return "home.html";
     }
 
     @RequestMapping(value = "/addfixcustomers", method = RequestMethod.GET)
@@ -85,35 +114,4 @@ public class UserController {
 
         return ResponseEntity.ok("3 customers added");
     }
-
-
-    @RequestMapping(value = "/greetpage", method = RequestMethod.GET)
-    public ResponseEntity<String> getPageName(){
-        return ResponseEntity.ok("Hello greet page");
-    }
-
-    @RequestMapping(value = "/loggertest", method = RequestMethod.GET)
-    public ResponseEntity<String> loggerTest(){
-        logger.trace("A TRACE Message");
-        logger.debug("A DEBUG Message");
-        logger.info("An INFO Message");
-        logger.warn("A WARN Message");
-        logger.error("An ERROR Message");
-        return ResponseEntity.ok("All logger levels had been used");
-    }
-
-    @RequestMapping(value = "/greetbyname", method = RequestMethod.GET)
-    public ResponseEntity<String> getGreetingsByName(@RequestParam(value = "name", defaultValue = "User") String name){
-        return ResponseEntity.ok("Hello " + name);
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getHome(Model model, @RequestParam(value = "name", defaultValue = "User") String name){
-        logger.trace("we are home");
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, Locale.getDefault());
-        model.addAttribute("serverTime", dateFormat.format(new Date()));
-        model.addAttribute("toUserMessage", "Hello " + name + "!");
-        return "home.html";
-    }
-
 }

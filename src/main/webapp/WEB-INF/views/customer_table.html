@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Customers list</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th> ID </th>
+                <th> First Name </th>
+                <th th:text="LastName"/>
+                <th th:text="PassportID"/>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${customers.empty}">
+                <td colspan="2">No customers available</td>
+            </tr>
+            <tr th:each="customer :${customers}">
+                <td><span th:text="${customer.cust_id}"> ID </span></td>
+                <td><span th:text="${customer.fName}"> First Name </span></td>
+                <td><span th:text="${customer.lName}"> Last Name </span></td>
+                <td><span th:text="${customer.passportId}"> Passport ID </span></td>
+            </tr>
+        </tbody>
+    </table>
+    <!--<table>-->
+        <!--<tr>-->
+            <!--<td><a th:href="@{/addStudent}" th:text="#{msg.AddStudent}" /></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td><a th:href="@{/listStudents}" th:text="#{msg.ListStudents}" /></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td><a th:href="@{/listTeachers}" th:text="#{msg.ListTeachers}" /></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td><a th:href="@{/listBooks}" th:text="#{msg.ListBooks}" /></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td><a th:href="@{/registerCourse}" th:text="#{msg.CourseRegistration}" /></td>-->
+        <!--</tr>-->
+    <!--</table>-->
+
+
+
+    <p><a th:href="@{/}">go home</a> </p>
+
+</body>
+</html>

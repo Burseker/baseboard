@@ -36,6 +36,7 @@ public class BankDaoH2PresistImpl implements BankDao {
             result = entityManager.createQuery("from Customer", Customer.class).getResultList();
             entityManager.getTransaction().commit();
         } catch (Exception ignore){
+            logger.warn("Cant get list");
             return new ArrayList<>();
         } finally {
             entityManager.close();
@@ -51,7 +52,7 @@ public class BankDaoH2PresistImpl implements BankDao {
             entityManager.persist(customer);
             entityManager.getTransaction().commit();
         } catch (Exception ignore){
-            logger.warn("Not added exception:" + customer, ignore);
+            logger.warn("Not added exception:" + customer);
             entityManager.getTransaction().rollback();
         } finally {
             entityManager.close();
