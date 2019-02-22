@@ -63,6 +63,9 @@ http://www.dil.univ-mrs.fr/~massat/docs/hibernate-2/reference/ru/html_single/#pr
 - [Working With Custom HTML Attributes in Thymeleaf](https://www.baeldung.com/thymeleaf-custom-html-attributes)
 - [Guide to Internationalization in Spring Boot](https://www.baeldung.com/spring-boot-internationalization)
 
+--How to “abort” merge in IntelliJ Idea
+https://superuser.com/questions/1286699/how-to-abort-merge-in-intellij-idea
+
 ### Build the Project
 
 run BaseboardApplication class as an entry point to main function
