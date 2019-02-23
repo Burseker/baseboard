@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -44,7 +41,9 @@ public class UserController {
 
         Page<Customer> pageCustomer = bankService.getCustomersPaginated(PageRequest.of(curretPage-1, pageSize));
 
-        //List<Customer> custList = pageCustomer.getContent();
+//        logger.trace("pageCustomer.totalPages: " + pageCustomer.getTotalPages());
+//        logger.trace("pageCustomer.size: " + pageCustomer.getSize());
+//        logger.trace("pageCustomer.content.size: " + pageCustomer.getContent().size());
 
         model.addAttribute("customers", pageCustomer);
 
