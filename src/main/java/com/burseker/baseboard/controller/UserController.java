@@ -5,6 +5,8 @@ import com.burseker.baseboard.sevice.BankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class UserController {
@@ -26,9 +31,37 @@ public class UserController {
     private BankService bankService;
 
 
-    @RequestMapping(value = "/customersliststring", method = RequestMethod.GET)
-    public String customersListString(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+    @RequestMapping(value = "/customerslistpage", method = RequestMethod.GET)
+    public String customersListPage(
+            Model model,
+            @RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size){
+
         logger.trace("page request for customers");
+
+        int curretPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+
+        Page<Customer> pageCustomer = bankService.getCustomersPaginated(PageRequest.of(curretPage-1, pageSize));
+
+        //List<Customer> custList = pageCustomer.getContent();
+
+        model.addAttribute("customers", pageCustomer);
+
+        int totalPages = pageCustomer.getTotalPages();
+        if(totalPages > 0){
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
+        return "customer_page.html";
+    }
+
+    @RequestMapping(value = "/customerslisttable", method = RequestMethod.GET)
+    public String customersListString(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+        logger.trace("table request for customers");
         model.addAttribute("customers", bankService.getCustomers());
         return "customer_table.html";
     }

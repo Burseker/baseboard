@@ -14,12 +14,12 @@ https://www.devglan.com/spring-boot/spring-boot-h2-database-example
 --link to github project
 https://github.com/mrin9/Angular-SpringBoot-REST-JWT
 
-
 --Hibernate quick start example
 https://www.logicbig.com/tutorials/misc/hibernate/getting-started.html
 
 --paginating tutorial
 https://www.baeldung.com/jpa-pagination
+https://www.baeldung.com/spring-thymeleaf-pagination
 
 --Spring MVC Hibernate MySQL Integration CRUD Example Tutorial
 https://www.journaldev.com/3531/spring-mvc-hibernate-mysql-integration-crud-example-tutorial

@@ -28,6 +28,13 @@
         </tbody>
     </table>
 
+    <div th:if="${customers.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/customerslistpage(size=${customers.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==customers.number + 1} ? active"></a>
+    </div>
+
     <p><a th:href="@{/}">go home</a> </p>
 
 </body>

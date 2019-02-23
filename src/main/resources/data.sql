@@ -8,3 +8,6 @@ INSERT INTO Customer(fname, lname, passport_id) VALUES ('Liza', 'Ripova', '12312
 INSERT INTO Customer(fname, lname, passport_id) VALUES ('Anna', 'Nifnifova', '1231231239');
 INSERT INTO Customer(fname, lname, passport_id) VALUES ('Sveta', 'Nafnafova', '3231231230');
 INSERT INTO Customer(fname, lname, passport_id) VALUES ('Jenia', 'Nufnufova', '3231231231');
+
+--INSERT INTO Customer(fname, lname, passport_id) VALUES ('Jenia', 'Nufnufova', '3231231231');
+--DELETE FROM Customer WHERE CUST_ID = 1;
