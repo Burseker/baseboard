@@ -7,12 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.util.*;
@@ -27,25 +26,29 @@ public class UserController {
     @Autowired
     private BankService bankService;
 
-
     @RequestMapping(value = "/customerslistpage", method = RequestMethod.GET)
     public String customersListPage(
             Model model,
             @RequestParam("page") Optional<Integer> page,
-            @RequestParam("size") Optional<Integer> size){
+            @RequestParam("size") Optional<Integer> size,
+            @RequestParam("sort") Optional<String> sort){
 
         logger.trace("page request for customers");
 
         int curretPage = page.orElse(1);
         int pageSize = size.orElse(5);
+        String sortProp = sort.orElse("cust_id");
 
-        Page<Customer> pageCustomer = bankService.getCustomersPaginated(PageRequest.of(curretPage-1, pageSize));
+        Page<Customer> pageCustomer = bankService.getCustomersPaginated(
+                    PageRequest.of(curretPage-1, pageSize, new Sort(Sort.Direction.ASC, sortProp)
+                ));
 
 //        logger.trace("pageCustomer.totalPages: " + pageCustomer.getTotalPages());
 //        logger.trace("pageCustomer.size: " + pageCustomer.getSize());
 //        logger.trace("pageCustomer.content.size: " + pageCustomer.getContent().size());
 
         model.addAttribute("customers", pageCustomer);
+        model.addAttribute("sortParam", sortProp);
 
         int totalPages = pageCustomer.getTotalPages();
         if(totalPages > 0){
@@ -65,14 +68,26 @@ public class UserController {
         return "customer_table.html";
     }
 
-
     @RequestMapping(value = "/customerslistraw", method = RequestMethod.GET)
     public ResponseEntity<List<Customer>> customersListRaw(Model model, @RequestParam(value = "name", defaultValue = "User") String name){
         logger.trace("raw request for customers");
         return ResponseEntity.ok(bankService.getCustomers());
     }
 
+    //@RequestMapping(value = "/createCustomer", method = RequestMethod.GET) equivalent
+    @GetMapping(value = "/createCustomer")
+    public String createCustomer(Model model){
+        model.addAttribute("form", new Customer());
+        return "createCustomer.html";
+    }
 
+    @PostMapping("/addCustomer")
+    public String addCustomre(@ModelAttribute Customer customer, Model model){
+        bankService.setCustomer(customer);
+        logger.trace("Customer added: " + customer);
+        return "redirect:/createCustomer";
+//        return "redirect:/customerslisttable";
+    }
 
     @RequestMapping(value = "/greetpage", method = RequestMethod.GET)
     public ResponseEntity<String> getPageName(){

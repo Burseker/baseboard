@@ -36,22 +36,22 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public Page<Customer> getCustomersPaginated(Pageable pageable) {
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-
-        List<Customer> allCustomers = getCustomers();
-        List<Customer> pageCustomers;
-
-        if(allCustomers.size() < startItem ){
-            pageCustomers = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, allCustomers.size());
-            pageCustomers = allCustomers.subList(startItem, toIndex);
-        }
-
-        Page<Customer> res = new PageImpl<Customer>(pageCustomers, PageRequest.of(currentPage, pageSize), allCustomers.size());
-        return res;
+//        int pageSize = pageable.getPageSize();
+//        int currentPage = pageable.getPageNumber();
+//        int startItem = currentPage * pageSize;
+//
+//        List<Customer> allCustomers = getCustomers();
+//        List<Customer> pageCustomers;
+//
+//        if(allCustomers.size() < startItem ){
+//            pageCustomers = Collections.emptyList();
+//        } else {
+//            int toIndex = Math.min(startItem + pageSize, allCustomers.size());
+//            pageCustomers = allCustomers.subList(startItem, toIndex);
+//        }
+//
+//        Page<Customer> res = new PageImpl<Customer>(pageCustomers, PageRequest.of(currentPage, pageSize), allCustomers.size());
+        return bankDao.getCustomersPage(pageable);
     }
 
     @Override

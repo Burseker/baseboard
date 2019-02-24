@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <title>New customer:</title>
+</head>
+<body>
+<form action="#" th:action="@{/addCustomer}" th:object="${form}" method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+
+        <p>First Name: <input type="text" th:field="*{fName}" /></p>
+        <p>Last Name: <input type="text" th:field="*{lName}" /></p>
+        <p>Passport ID: <input type="text" th:field="*{passportId}" /></p>
+    </fieldset>
+</form>
+
+<p><a th:href="@{/}">go home</a> </p>
+</body>
+</html>

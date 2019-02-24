@@ -30,7 +30,7 @@
 
     <div th:if="${customers.totalPages > 0}" class="pagination"
          th:each="pageNumber : ${pageNumbers}">
-        <a th:href="@{/customerslistpage(size=${customers.size}, page=${pageNumber})}"
+        <a th:href="@{/customerslistpage(size=${customers.size}, page=${pageNumber}, sort=${sortParam})}"
            th:text=${pageNumber}
            th:class="${pageNumber==customers.number + 1} ? active"></a>
     </div>
