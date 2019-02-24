@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <title>Update customer:</title>
+</head>
+<body>
+<form action="#" th:action="@{/addCustomer}" th:object="${form}" method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+
+        <p>ID: <span th:text="*{cust_id}" /></p>
+        <!--<p>ID: <input type="text" th:name="|cust_id|" vlue="trololo" /></p>-->
+        <input hidden type="text" th:field="*{cust_id}" />
+        <!--<p>First Name: <input type="text" th:name="|form.fName|" th:value="${form.getfName()}" /></p>-->
+        <p>First Name: <input type="text" th:name="|fName|" th:value="${form.getfName()}" /></p>
+        <!--<p>First Name: <input type="text" th:field="*{fName}" /></p>-->
+        <p>Last Name: <input type="text" th:field="*{lName}" /></p>
+        <p>Passport ID: <span th:text="*{passportId}" /></p>
+    </fieldset>
+</form>
+
+<p><a th:href="@{/}">go home</a> </p>
+</body>
+</html>

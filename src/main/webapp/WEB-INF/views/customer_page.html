@@ -20,7 +20,9 @@
                 <td colspan="2">No customers available</td>
             </tr>
             <tr th:each="customer :${customers}">
-                <td><span th:text="${customer.cust_id}"> ID </span></td>
+                <td>
+                    <a th:href="@{/updateCustomer(custId=${customer.cust_id})}"><span th:text="${customer.cust_id}"> ID </span></a>
+                </td>
                 <td><span th:text="${customer.fName}"> First Name </span></td>
                 <td><span th:text="${customer.lName}"> Last Name </span></td>
                 <td><span th:text="${customer.passportId}"> Passport ID </span></td>

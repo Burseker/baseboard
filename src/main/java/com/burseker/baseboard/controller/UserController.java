@@ -25,6 +25,14 @@ public class UserController {
 
     @Autowired
     private BankService bankService;
+    private static final Customer customerTest = new Customer();
+
+    static{
+        customerTest.setCust_id(1);
+        customerTest.setfName("Test cust fname");
+        customerTest.setlName("Test cust lname");
+        customerTest.setPassportId("231423543535434");
+    }
 
     @RequestMapping(value = "/customerslistpage", method = RequestMethod.GET)
     public String customersListPage(
@@ -88,6 +96,21 @@ public class UserController {
         return "redirect:/createCustomer";
 //        return "redirect:/customerslisttable";
     }
+
+    //@RequestMapping(value = "/createCustomer", method = RequestMethod.GET) equivalent
+    @GetMapping(value = "/updateCustomer")
+    public String updateCustomer(
+            Model model,
+            @RequestParam("custId") Optional<Integer> custId){
+        int cust_id = custId.orElse(1);
+
+        logger.trace("updateCustomer method. cusdId = "+ cust_id);
+
+        model.addAttribute("form", customerTest);
+
+        return "updateCustomer.html";
+    }
+
 
     @RequestMapping(value = "/greetpage", method = RequestMethod.GET)
     public ResponseEntity<String> getPageName(){
