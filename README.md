@@ -20,6 +20,9 @@ https://www.logicbig.com/tutorials/misc/hibernate/getting-started.html
 --paginating tutorial
 https://www.baeldung.com/jpa-pagination
 https://www.baeldung.com/spring-thymeleaf-pagination
+--Form Handling
+https://www.baeldung.com/thymeleaf-list
+https://medium.com/@grokwich/spring-boot-thymeleaf-html-form-handling-762ef0d51327
 
 --Spring MVC Hibernate MySQL Integration CRUD Example Tutorial
 https://www.journaldev.com/3531/spring-mvc-hibernate-mysql-integration-crud-example-tutorial
