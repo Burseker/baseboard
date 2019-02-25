@@ -106,9 +106,19 @@ public class UserController {
 
         logger.trace("updateCustomer method. cusdId = "+ cust_id);
 
-        model.addAttribute("form", customerTest);
+        model.addAttribute("form", bankService.getCustomer(cust_id));
 
         return "updateCustomer.html";
+    }
+
+
+    @PostMapping("/updateCustomer")
+    public String updateCustomrePost(@ModelAttribute Customer customer, Model model){
+//        customer.setCust_id(0);
+        bankService.setCustomer(customer);
+        logger.trace("Customer added: " + customer);
+        return "redirect:/updateCustomer?custId=" + customer.getCust_id();
+//        return "redirect:/customerslisttable";
     }
 
 

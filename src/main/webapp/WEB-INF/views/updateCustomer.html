@@ -5,19 +5,23 @@
     <title>Update customer:</title>
 </head>
 <body>
-<form action="#" th:action="@{/addCustomer}" th:object="${form}" method="post">
+<form action="#" th:action="@{/updateCustomer}" th:object="${form}" method="post">
     <fieldset>
         <input type="submit" id="submitButton" th:value="Save">
         <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
 
         <p>ID: <span th:text="*{cust_id}" /></p>
-        <!--<p>ID: <input type="text" th:name="|cust_id|" vlue="trololo" /></p>-->
         <input hidden type="text" th:field="*{cust_id}" />
-        <!--<p>First Name: <input type="text" th:name="|form.fName|" th:value="${form.getfName()}" /></p>-->
-        <p>First Name: <input type="text" th:name="|fName|" th:value="${form.getfName()}" /></p>
+        <!--there is two different ways to input value-->
+         <!--1. th:field tag-->
+         <!--2. th:name and th:value tags-->
+        <!--i did't find good answer about differents-->
         <!--<p>First Name: <input type="text" th:field="*{fName}" /></p>-->
-        <p>Last Name: <input type="text" th:field="*{lName}" /></p>
+        <p>First Name: <input type="text" th:name="|fName|" th:value="${form.getfName()}" /></p>
+        <p>Last Name: <input type="text" th:name="|lName|" th:value="${form.getlName()}" /></p>
+        <input type="text" th:field="*{passportId}" />
         <p>Passport ID: <span th:text="*{passportId}" /></p>
+
     </fieldset>
 </form>
 

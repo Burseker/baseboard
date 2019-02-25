@@ -19,10 +19,10 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cust_id;
 
-    @Column(name = "fname", nullable = false, updatable = false)
+    @Column(name = "fname", nullable = false, updatable = true)
     private String fName;
 
-    @Column(name = "lname", nullable = false, updatable = false)
+    @Column(name = "lname", nullable = false, updatable = true)
     private String lName;
 
     @Column(name = "passport_id", length = 10, nullable = false)

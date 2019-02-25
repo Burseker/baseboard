@@ -2,6 +2,7 @@ package com.burseker.baseboard.dao.impl;
 
 import com.burseker.baseboard.dao.BankDao;
 import com.burseker.baseboard.model.Customer;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -29,7 +31,20 @@ public class BankDaoH2PresistImpl implements BankDao {
 
     @Override
     public Customer getCustomer(int custId) {
-        return null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Customer customer = null;
+
+        try{
+            entityManager.getTransaction().begin();
+            customer = entityManager.find(Customer.class, custId);
+            entityManager.getTransaction().commit();
+        } catch (Exception ignore){
+            logger.warn("Cant get customer", ignore);
+        } finally {
+            entityManager.close();
+        }
+
+        return customer;
     }
 
     @Override
@@ -109,15 +124,30 @@ public class BankDaoH2PresistImpl implements BankDao {
     @Override
     public void setCustomer(Customer customer) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(customer);
-            entityManager.getTransaction().commit();
-        } catch (Exception ignore){
-            logger.warn("Not added exception:" + customer);
-            entityManager.getTransaction().rollback();
-        } finally {
-            entityManager.close();
+
+        if(customer.getCust_id() == 0) {
+            try {
+                entityManager.getTransaction().begin();
+                entityManager.persist(customer);
+                entityManager.getTransaction().commit();
+            } catch (Exception ignore) {
+                logger.warn("Not added exception:" + customer);
+                entityManager.getTransaction().rollback();
+            } finally {
+                entityManager.close();
+            }
+        } else {
+            try {
+                entityManager.getTransaction().begin();
+                entityManager.merge(customer);
+                entityManager.getTransaction().commit();
+            } catch (Exception ignore) {
+                logger.warn("Not updated exception:" + customer);
+                entityManager.getTransaction().rollback();
+            } finally {
+                entityManager.close();
+            }
         }
+
     }
 }
