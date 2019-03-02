@@ -28,6 +28,7 @@ https://medium.com/@grokwich/spring-boot-thymeleaf-html-form-handling-762ef0d513
 https://www.journaldev.com/3531/spring-mvc-hibernate-mysql-integration-crud-example-tutorial
 
 - [Spring MVC 4 - Thymeleaf CRUD - Part 3] (http://dtr-trading.blogspot.com/2014/02/spring-mvc-4-thymeleaf-crud-part-3.html)
+- [Thymeleaf exersizes] (http://itutorial.thymeleaf.org/exercise/21)
 
 https://www.baeldung.com/hibernate-4-spring
 
