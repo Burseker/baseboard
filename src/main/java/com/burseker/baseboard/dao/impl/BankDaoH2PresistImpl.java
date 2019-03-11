@@ -36,10 +36,10 @@ public class BankDaoH2PresistImpl implements BankDao {
 
         try{
             entityManager.getTransaction().begin();
-            customer = entityManager.find(Customer.class, custId);
+            customer = entityManager.find(Customer.class, (long)custId);
             entityManager.getTransaction().commit();
         } catch (Exception ignore){
-            logger.warn("Cant get customer", ignore);
+            logger.warn("Cant get customers", ignore);
         } finally {
             entityManager.close();
         }
@@ -87,7 +87,7 @@ public class BankDaoH2PresistImpl implements BankDao {
 
         try {
             entityManager.getTransaction().begin();
-            BigInteger res = (BigInteger) entityManager.createNativeQuery("SELECT COUNT(f.cust_id) FROM Customer f").getSingleResult();
+            BigInteger res = (BigInteger) entityManager.createNativeQuery("SELECT COUNT(f.id) FROM Customers f").getSingleResult();
             totalCustomerListSize = res.longValue();
             logger.trace("totalCustomerListSize obtained: " + totalCustomerListSize);
             if(totalCustomerListSize > currPos){

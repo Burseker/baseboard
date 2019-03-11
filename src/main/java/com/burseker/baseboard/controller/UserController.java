@@ -28,7 +28,7 @@ public class UserController {
     private static final Customer customerTest = new Customer();
 
     static{
-        customerTest.setCust_id(1);
+        //customerTest.setCust_id(1);
         customerTest.setfName("Test cust fname");
         customerTest.setlName("Test cust lname");
         customerTest.setPassportId("231423543535434");
@@ -45,7 +45,7 @@ public class UserController {
 
         int curretPage = page.orElse(1);
         int pageSize = size.orElse(5);
-        String sortProp = sort.orElse("cust_id");
+        String sortProp = sort.orElse("id");
 
         Page<Customer> pageCustomer = bankService.getCustomersPaginated(
                     PageRequest.of(curretPage-1, pageSize, new Sort(Sort.Direction.ASC, sortProp)

@@ -1,6 +1,8 @@
 package com.burseker.baseboard.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 //@Table(name = "customer",
@@ -12,7 +14,7 @@ import javax.persistence.*;
 //            columnNames = {"cust_id", "passport_id"}
 //    )}
 //)
-@Table(name = "customer",
+@Table(name = "customers",
     indexes = {@Index(
             name = "j_passport_idx",
             columnList = "passport_id", unique = true
@@ -23,29 +25,37 @@ public class Customer {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cust_id;
+//    @GeneratedValue(strategy = Constants.ID_GENERATOR)
+    protected Long id;
 
     @Column(name = "fname", nullable = false, updatable = true)
-    private String fName;
+    protected String fName;
 
     @Column(name = "lname", nullable = false, updatable = true)
-    private String lName;
+    protected String lName;
 
     @Column(name = "passport_id", length = 10, nullable = false)
-    private String passportId;
+    protected String passportId;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "ACCOUNTS",
+            joinColumns = @JoinColumn( name = "ACC_ID"))
+    @Column(name = "ACCOUNTS_COLUMN")
+    protected Set<Account> accounts = new HashSet<Account>();
 
     @Override
     public String toString() {
-        return String.format("Cust id: %d, FName: %s, LName: %s, Passport: %s", cust_id, fName, lName, passportId);
+        return String.format("Cust id: %d, FName: %s, LName: %s, Passport: %s", id, fName, lName, passportId);
     }
 
     public int getCust_id() {
-        return cust_id;
+        return id.intValue();
     }
 
-    public void setCust_id(int cust_id) {
-        this.cust_id = cust_id;
-    }
+//    public void setCust_id(int cust_id) {
+//        this.cust_id = cust_id;
+//    }
 
     public String getfName() {
         return fName;
@@ -69,5 +79,13 @@ public class Customer {
 
     public void setPassportId(String passportId) {
         this.passportId = passportId;
+    }
+
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
     }
 }

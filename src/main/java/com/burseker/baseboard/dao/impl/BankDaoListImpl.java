@@ -49,7 +49,7 @@ public class BankDaoListImpl implements BankDao{
     @Override
     public void setCustomer(Customer customer) {
         Customer nCust = new Customer();
-        nCust.setCust_id(currId.getAndIncrement());
+        //nCust.setCust_id(currId.getAndIncrement());
         nCust.setfName(customer.getfName());
         nCust.setlName(customer.getlName());
         nCust.setPassportId(customer.getPassportId());
