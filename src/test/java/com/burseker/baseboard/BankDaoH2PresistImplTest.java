@@ -1,19 +1,20 @@
 package com.burseker.baseboard;
 
+import com.burseker.baseboard.config.AppConfig;
 import com.burseker.baseboard.dao.impl.BankDaoH2PresistImpl;
 import com.burseker.baseboard.model.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringRunner.class) // SpringRunner.class is new alias name for SpringJUnit4ClassRunner.class
 @SpringBootTest
 public class BankDaoH2PresistImplTest {
 
@@ -33,6 +34,11 @@ public class BankDaoH2PresistImplTest {
         assertThat(resList.size()).isEqualTo(10);
         assertThat(bankDaoH2Presist).isNotNull();
 
+        Customer customer = bankDaoH2Presist.getCustomer(20);
+        assertThat(customer).isNull();
+
+        customer = bankDaoH2Presist.getCustomer(10);
+        assertThat(customer).isNotNull();
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
     }
