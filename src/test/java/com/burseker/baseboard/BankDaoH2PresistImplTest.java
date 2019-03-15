@@ -37,11 +37,11 @@ public class BankDaoH2PresistImplTest {
         Customer customer = bankDaoH2Presist.getCustomer(20);
         assertThat(customer).isNull();
 
-        customer = bankDaoH2Presist.getCustomer(10);
+        customer = bankDaoH2Presist.getCustomer(1);
         assertThat(customer).isNotNull();
+        customer.getAccounts().forEach(System.out::println);
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
     }
-
 
 }

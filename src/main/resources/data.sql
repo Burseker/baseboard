@@ -9,5 +9,8 @@ INSERT INTO Customers(fname, lname, passport_id) VALUES ('Anna', 'Nifnifova', '1
 INSERT INTO Customers(fname, lname, passport_id) VALUES ('Sveta', 'Nafnafova', '3231231230');
 INSERT INTO Customers(fname, lname, passport_id) VALUES ('Jenia', 'Nufnufova', '3231231231');
 
+INSERT INTO Accounts(ACC_ID, name, balance) VALUES ('1', 'savings', '12000');
+INSERT INTO Accounts(ACC_ID, name, balance) VALUES ('1', 'checkings', '9001');
+
 --INSERT INTO Customer(fname, lname, passport_id) VALUES ('Jenia', 'Nufnufova', '3231231231');
 --DELETE FROM Customer WHERE CUST_ID = 1;

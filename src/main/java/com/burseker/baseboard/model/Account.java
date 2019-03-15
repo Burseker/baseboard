@@ -23,6 +23,11 @@ public class Account {
     }
 
     @Override
+    public String toString() {
+        return String.format("Acc name: %s, acc balance: %s", name, balance);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(name, balance);
     }

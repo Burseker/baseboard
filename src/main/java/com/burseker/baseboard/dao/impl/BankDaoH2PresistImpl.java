@@ -1,7 +1,9 @@
 package com.burseker.baseboard.dao.impl;
 
 import com.burseker.baseboard.dao.BankDao;
+import com.burseker.baseboard.model.Account;
 import com.burseker.baseboard.model.Customer;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,7 @@ import javax.persistence.Query;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Repository("BankDaoH2PresistImpl")
 public class BankDaoH2PresistImpl implements BankDao {
@@ -33,16 +36,21 @@ public class BankDaoH2PresistImpl implements BankDao {
     public Customer getCustomer(int custId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         Customer customer = null;
-
         try{
             entityManager.getTransaction().begin();
             customer = entityManager.find(Customer.class, (long)custId);
+
+            if(customer != null){
+                Hibernate.initialize(customer.getAccounts());
+            }
+
             entityManager.getTransaction().commit();
         } catch (Exception ignore){
             logger.warn("Cant get customers", ignore);
         } finally {
             entityManager.close();
         }
+
 
         return customer;
     }
