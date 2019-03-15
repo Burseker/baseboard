@@ -120,7 +120,6 @@ public class BankDaoH2PresistImpl implements BankDao {
     }
 
 
-
     @Override
     public void setCustomer(Customer customer) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
