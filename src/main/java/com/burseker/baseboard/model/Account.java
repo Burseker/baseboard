@@ -4,8 +4,19 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Embeddable
+@Table(name = "ACCOUNTS")
+@Entity
 public class Account {
+
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CUST_ID", nullable = false)
+    protected Customer customer;
+
     @Column(nullable = false)
     protected String name;
 

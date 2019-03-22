@@ -50,7 +50,26 @@ public class BankDaoH2PresistImplTest {
     public void whenUsingSomeFeatures(){
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
 
-        List<Account> resList = bankDaoH2Presist.getAccounts(2L);
+        System.out.println("For cust_id = 1");
+        List<Account> resList = bankDaoH2Presist.getAccounts(1L);
+
+        for (int i = 0; i < resList.size(); i++) {
+            System.out.println(resList.get(i));
+        }
+
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+
+        System.out.println("For cust_id = 2");
+        resList = bankDaoH2Presist.getAccounts(2L);
+
+        for (int i = 0; i < resList.size(); i++) {
+            System.out.println(resList.get(i));
+        }
+
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+
+        System.out.println("For cust_id = 0");
+        resList = bankDaoH2Presist.getAccounts(0L);
 
         for (int i = 0; i < resList.size(); i++) {
             System.out.println(resList.get(i));
