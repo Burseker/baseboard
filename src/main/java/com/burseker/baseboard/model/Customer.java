@@ -37,11 +37,15 @@ public class Customer {
     @Column(name = "passport_id", length = 10, nullable = false)
     protected String passportId;
 
-    @ElementCollection
-    @CollectionTable(
-            name = "ACCOUNTS",
-            joinColumns = @JoinColumn( name = "ACC_ID"))
-    @Column(name = "ACCOUNTS_COLUMN")
+//    @ElementCollection
+//    @CollectionTable(
+//            name = "ACCOUNTS",
+//            joinColumns = @JoinColumn( name = "ACC_ID"))
+//    @Column(name = "ACCOUNTS_COLUMN")
+//    @Transient
+    @OneToMany(mappedBy = "customer",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     protected Set<Account> accounts = new HashSet<Account>();
 
     @Override
