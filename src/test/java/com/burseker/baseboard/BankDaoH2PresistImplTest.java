@@ -50,11 +50,11 @@ public class BankDaoH2PresistImplTest {
     public void whenUsingSomeFeatures(){
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
 
-        List<Account> resList = bankDaoH2Presist.getAccounts("savings");
+        List<Account> resList = bankDaoH2Presist.getAccounts(2L);
 
-//        for (int i = 0; i < resList.size(); i++) {
-//            System.out.println(resList.get(i));
-//        }
+        for (int i = 0; i < resList.size(); i++) {
+            System.out.println(resList.get(i));
+        }
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
     }

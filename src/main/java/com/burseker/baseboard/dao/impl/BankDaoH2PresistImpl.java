@@ -15,10 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.query.QueryUtils;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,17 +54,26 @@ public class BankDaoH2PresistImpl implements BankDao {
     }
 
 
-    public List<Account> getAccounts(String typeStr) {
+    public List<Account> getAccounts(Long custId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        List<Account> accounts = null;
-        List<Customer> customers = null;
+        List<Account> accounts = new ArrayList<>();
+
         try{
             entityManager.getTransaction().begin();
-//            accounts = entityManager.createNativeQuery("SELECT Accounts FROM Account where Accounts.name = :val1", Account.class)
-            customers = entityManager.createNativeQuery("SELECT * FROM CUSTOMERS", Customer.class)
-//            //accounts = entityManager.createQuery("from Account", Account.class)
-//                    //.setParameter("val1", typeStr)
+
+            List result;
+            result = entityManager.createNativeQuery("SELECT * FROM ACCOUNTS where ACC_ID = :value")
+                    .setParameter("value", custId)
                     .getResultList();
+
+            for( Object o : result){
+                Object[] resSet = (Object[])o;
+                Account account = new Account();
+                account.setName((String)resSet[2]);
+                account.setBalance((BigDecimal)resSet[1]);
+                accounts.add(account);
+            }
+
             entityManager.getTransaction().commit();
         } catch (Exception ignore){
             logger.warn("Cant get accounts", ignore);

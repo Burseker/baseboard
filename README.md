@@ -17,6 +17,8 @@ https://github.com/mrin9/Angular-SpringBoot-REST-JWT
 --Hibernate quick start example
 https://www.logicbig.com/tutorials/misc/hibernate/getting-started.html
 
+- [Hibernate native query](https://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/chapters/query-native/Native.html)
+
 --paginating tutorial
 https://www.baeldung.com/jpa-pagination
 https://www.baeldung.com/spring-thymeleaf-pagination
