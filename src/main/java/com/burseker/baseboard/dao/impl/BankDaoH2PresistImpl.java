@@ -55,6 +55,28 @@ public class BankDaoH2PresistImpl implements BankDao {
         return customer;
     }
 
+
+    public List<Account> getAccounts(String typeStr) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        List<Account> accounts = null;
+        List<Customer> customers = null;
+        try{
+            entityManager.getTransaction().begin();
+//            accounts = entityManager.createNativeQuery("SELECT Accounts FROM Account where Accounts.name = :val1", Account.class)
+            customers = entityManager.createNativeQuery("SELECT * FROM CUSTOMERS", Customer.class)
+//            //accounts = entityManager.createQuery("from Account", Account.class)
+//                    //.setParameter("val1", typeStr)
+                    .getResultList();
+            entityManager.getTransaction().commit();
+        } catch (Exception ignore){
+            logger.warn("Cant get accounts", ignore);
+        } finally {
+            entityManager.close();
+        }
+
+        return accounts;
+    }
+
     @Override
     public List<Customer> getCustomers() {
 //        Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Customer.class);
@@ -64,6 +86,7 @@ public class BankDaoH2PresistImpl implements BankDao {
         try {
             entityManager.getTransaction().begin();
             result = entityManager.createQuery("from Customer", Customer.class).getResultList();
+//            result = entityManager.createNativeQuery("SELECT * FROM CUSTOMERS", Customer.class).getResultList();
             entityManager.getTransaction().commit();
         } catch (Exception ignore){
             logger.warn("Cant get list", ignore);

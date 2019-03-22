@@ -2,6 +2,7 @@ package com.burseker.baseboard;
 
 import com.burseker.baseboard.config.AppConfig;
 import com.burseker.baseboard.dao.impl.BankDaoH2PresistImpl;
+import com.burseker.baseboard.model.Account;
 import com.burseker.baseboard.model.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,6 +41,20 @@ public class BankDaoH2PresistImplTest {
         customer = bankDaoH2Presist.getCustomer(1);
         assertThat(customer).isNotNull();
         customer.getAccounts().forEach(System.out::println);
+
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+    }
+
+
+    @Test
+    public void whenUsingSomeFeatures(){
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+
+        List<Account> resList = bankDaoH2Presist.getAccounts("savings");
+
+//        for (int i = 0; i < resList.size(); i++) {
+//            System.out.println(resList.get(i));
+//        }
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
     }
