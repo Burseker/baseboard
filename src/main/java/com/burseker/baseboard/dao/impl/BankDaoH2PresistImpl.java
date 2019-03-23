@@ -62,17 +62,22 @@ public class BankDaoH2PresistImpl implements BankDao {
             entityManager.getTransaction().begin();
 
             List result;
-            result = entityManager.createNativeQuery("SELECT * FROM ACCOUNTS where ACC_ID = :value")
+            result = entityManager.createNativeQuery("SELECT acc.name as name, acc.balance as balance FROM ACCOUNTS acc where acc.ACC_ID = :value")
                     .setParameter("value", custId)
                     .getResultList();
 
             for( Object o : result){
                 Object[] resSet = (Object[])o;
                 Account account = new Account();
-                account.setName((String)resSet[2]);
+                account.setName((String)resSet[0]);
                 account.setBalance((BigDecimal)resSet[1]);
                 accounts.add(account);
             }
+
+            //not work, stil don't know how to do it
+//            accounts = entityManager.createNativeQuery("SELECT acc.name as name, acc.balance as balance FROM ACCOUNTS acc where ACC_ID = :value", Account.class)
+//                    .setParameter("value", custId)
+//                    .getResultList();
 
             entityManager.getTransaction().commit();
         } catch (Exception ignore){
