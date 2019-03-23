@@ -25,7 +25,10 @@ public class Card {
     @Column(length = 20, nullable = false, updatable = false)
     protected String name;
 
-    @Column(length = 6, nullable = false, updatable = false, unique = true)
+    @Column(length = 8, nullable = false, updatable = false, unique = true)
+    protected String uuid;
+
+    @Column(length = 6, nullable = false, updatable = false)
     protected String pin;
 
     //    protected Timestamp expiredDate;
@@ -37,6 +40,7 @@ public class Card {
                 "id=" + id +
 //                ", account=" + account +
                 ", name='" + name + '\'' +
+                ", uuid='" + uuid + '\'' +
                 ", pin='" + pin + '\'' +
                 '}';
     }
@@ -65,4 +69,11 @@ public class Card {
         this.pin = pin;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 }

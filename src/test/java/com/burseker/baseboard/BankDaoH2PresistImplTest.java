@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -62,13 +63,21 @@ public class BankDaoH2PresistImplTest {
 
         Card card = new Card();
         card.setName("black card/debit");
+        card.setUuid("12340001");
         card.setPin("9999");
         bankDaoH2Presist.createCard(card, 4L);
 
         card = new Card();
         card.setName("black card/debit");
-        card.setPin("1234");
+        card.setUuid("12340011");
+        card.setPin("9999");
         bankDaoH2Presist.createCard(card, 6L);
+
+        card = new Card();
+        card.setName("black card/debit");
+        card.setUuid("12340001");
+        card.setPin("9999");
+        bankDaoH2Presist.createCard(card, 5L);
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
 
@@ -83,6 +92,36 @@ public class BankDaoH2PresistImplTest {
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
 
+        bankDaoH2Presist.updateBalanceByCardUuid("12340011", new BigDecimal(120));
+
+        System.out.println("For cust_id = 2");
+        resList = bankDaoH2Presist.getAccounts(2L);
+
+        for (int i = 0; i < resList.size(); i++) {
+            System.out.println(resList.get(i));
+            if(resList.get(i).getCard() != null)
+                System.out.println(resList.get(i).getCard());
+        }
+
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+
+    }
+
+    @Test
+    public void whenAlteringCardBalance() {
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+
+        bankDaoH2Presist.updateBalanceByCardUuid("22330000", new BigDecimal(120));
+
+        System.out.println("For cust_id = 1");
+        List<Account> resList = bankDaoH2Presist.getAccounts(1L);
+
+        for (int i = 0; i < resList.size(); i++) {
+            System.out.println(resList.get(i));
+            if (resList.get(i).getCard() != null)
+                System.out.println(resList.get(i).getCard());
+        }
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
     }
 
 
@@ -117,5 +156,7 @@ public class BankDaoH2PresistImplTest {
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
     }
+
+
 
 }

@@ -16,5 +16,7 @@ INSERT INTO Accounts(CUST_ID, name, balance) VALUES ('2', 'checkings', '121');
 INSERT INTO Accounts(CUST_ID, name, balance) VALUES ('2', 'savings', '12200');
 INSERT INTO Accounts(CUST_ID, name, balance) VALUES ('2', 'checkings', '777');
 
+INSERT INTO Cards(id, name, uuid, pin) VALUES ('2', 'ddl card', '22330000', '9999');
+
 --INSERT INTO Customer(fname, lname, passport_id) VALUES ('Jenia', 'Nufnufova', '3231231231');
 --DELETE FROM Customer WHERE CUST_ID = 1;

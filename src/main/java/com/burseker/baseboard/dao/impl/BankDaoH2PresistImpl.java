@@ -103,6 +103,28 @@ public class BankDaoH2PresistImpl implements BankDao {
         return card;
     }
 
+
+    public void updateBalanceByCardUuid(String cardUuid, BigDecimal diffBalance){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+
+            Card cardPresist = entityManager.createQuery("from Card card where card.uuid = :value", Card.class)
+                    .setParameter("value", cardUuid)
+                    .getSingleResult();
+
+            if(cardPresist != null) {
+                cardPresist.getAccount().setBalance(cardPresist.getAccount().getBalance().add(diffBalance));
+            }
+
+            entityManager.getTransaction().commit();
+        } catch (Exception ignore){
+            logger.warn("Update balance falure", ignore);
+        } finally {
+            entityManager.close();
+        }
+    }
+
     @Override
     public List<Customer> getCustomers() {
 //        Criteria criteria = entityManager.unwrap(Session.class).createCriteria(Customer.class);
