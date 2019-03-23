@@ -3,6 +3,7 @@ package com.burseker.baseboard;
 import com.burseker.baseboard.config.AppConfig;
 import com.burseker.baseboard.dao.impl.BankDaoH2PresistImpl;
 import com.burseker.baseboard.model.Account;
+import com.burseker.baseboard.model.Card;
 import com.burseker.baseboard.model.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,6 +44,45 @@ public class BankDaoH2PresistImplTest {
         customer.getAccounts().forEach(System.out::println);
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+    }
+
+
+    @Test
+    public void whenCreatingCard(){
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+
+        System.out.println("For cust_id = 2");
+        List<Account> resList = bankDaoH2Presist.getAccounts(2L);
+
+        for (int i = 0; i < resList.size(); i++) {
+            System.out.println(resList.get(i));
+            if(resList.get(i).getCard() != null)
+                System.out.println(resList.get(i).getCard());
+        }
+
+        Card card = new Card();
+        card.setName("black card/debit");
+        card.setPin("9999");
+        bankDaoH2Presist.createCard(card, 4L);
+
+        card = new Card();
+        card.setName("black card/debit");
+        card.setPin("1234");
+        bankDaoH2Presist.createCard(card, 6L);
+
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+
+        System.out.println("For cust_id = 2");
+        resList = bankDaoH2Presist.getAccounts(2L);
+
+        for (int i = 0; i < resList.size(); i++) {
+            System.out.println(resList.get(i));
+            if(resList.get(i).getCard() != null)
+                System.out.println(resList.get(i).getCard());
+        }
+
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+
     }
 
 

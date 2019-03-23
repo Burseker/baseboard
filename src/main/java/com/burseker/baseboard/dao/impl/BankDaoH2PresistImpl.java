@@ -2,6 +2,7 @@ package com.burseker.baseboard.dao.impl;
 
 import com.burseker.baseboard.dao.BankDao;
 import com.burseker.baseboard.model.Account;
+import com.burseker.baseboard.model.Card;
 import com.burseker.baseboard.model.Customer;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -54,7 +55,7 @@ public class BankDaoH2PresistImpl implements BankDao {
     }
 
 
-    public List<Account> getAccounts(Long custId) {
+    public List<Account> getAccounts(long custId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         List<Account> accounts = new ArrayList<>();
 
@@ -62,7 +63,7 @@ public class BankDaoH2PresistImpl implements BankDao {
             entityManager.getTransaction().begin();
 
             accounts = entityManager.createQuery("from Account where CUST_ID = :val", Account.class)
-                    .setParameter("val", custId)
+                    .setParameter("val", custId )
                     .getResultList();
 
             entityManager.getTransaction().commit();
@@ -73,6 +74,33 @@ public class BankDaoH2PresistImpl implements BankDao {
         }
 
         return accounts;
+    }
+
+    public Card createCard(Card card, long accId){
+        Account account;
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+
+            account = entityManager.find(Account.class, accId);
+
+            if(account != null && account.getCard() == null) {
+                card.setAccount(account);
+                entityManager.persist(card);
+            } else {
+                logger.warn("Unable to add card");
+                card = null;
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception ignore){
+            logger.warn("Creating card falure", ignore);
+            return null;
+        } finally {
+            entityManager.close();
+        }
+
+        return card;
     }
 
     @Override

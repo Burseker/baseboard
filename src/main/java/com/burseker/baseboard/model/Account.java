@@ -23,6 +23,12 @@ public class Account {
     @Column(nullable = false)
     protected BigDecimal balance;
 
+    @OneToOne(
+            mappedBy = "account",
+            cascade = CascadeType.PERSIST
+    )
+    protected Card card;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -34,7 +40,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return String.format("Acc name: %s, acc balance: %s", name, balance);
+        return String.format("Acc id: %s, Acc name: %s, acc balance: %s", id, name, balance);
     }
 
     @Override
@@ -56,5 +62,13 @@ public class Account {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
     }
 }
