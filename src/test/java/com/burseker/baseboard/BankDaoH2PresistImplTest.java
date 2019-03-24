@@ -113,19 +113,19 @@ public class BankDaoH2PresistImplTest {
         card.setName("black card/debit");
         card.setUuid("12340001");
         card.setPin("9999");
-        bankDaoH2Presist.createCard(card, 4L);
+        bankDaoH2Presist.createCard(4L, card);
 
         card = new Card();
         card.setName("black card/debit");
         card.setUuid("12340011");
         card.setPin("9999");
-        bankDaoH2Presist.createCard(card, 6L);
+        bankDaoH2Presist.createCard(6L, card);
 
         card = new Card();
         card.setName("black card/debit");
         card.setUuid("12340001");
         card.setPin("9999");
-        bankDaoH2Presist.createCard(card, 5L);
+        bankDaoH2Presist.createCard(5L, card);
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
 
@@ -204,6 +204,5 @@ public class BankDaoH2PresistImplTest {
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
     }
-
 
 }

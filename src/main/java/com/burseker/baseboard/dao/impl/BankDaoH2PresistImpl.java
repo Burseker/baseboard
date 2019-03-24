@@ -1,9 +1,7 @@
 package com.burseker.baseboard.dao.impl;
 
 import com.burseker.baseboard.dao.BankDao;
-import com.burseker.baseboard.model.Account;
-import com.burseker.baseboard.model.Card;
-import com.burseker.baseboard.model.Customer;
+import com.burseker.baseboard.model.*;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -199,7 +197,7 @@ public class BankDaoH2PresistImpl implements BankDao {
 
 
     /**
-     *
+     * you can add account with bounded card, so it will not need to add card with different operation
      * @param custId
      * @param account
      */
@@ -228,7 +226,45 @@ public class BankDaoH2PresistImpl implements BankDao {
     }
 
 
-    public Card createCard(Card card, long accId){
+    /**
+     *
+     * @param accId
+     * @param payment
+     * @return
+     */
+    public Payment createPayment(long accId, Payment payment){
+        Account account;
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+
+            account = entityManager.find(Account.class, accId);
+
+            if(account != null) {
+                payment.setAccount(account);
+                entityManager.persist(payment);
+            } else {
+                logger.warn("No account payment will be attach");
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception ignore){
+            logger.warn("Creating payment falure", ignore);
+            return null;
+        } finally {
+            entityManager.close();
+        }
+        return payment;
+    }
+
+
+    /**
+     *
+     * @param accId
+     * @param card
+     * @return
+     */
+    public Card createCard(long accId, Card card){
         Account account;
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -256,6 +292,86 @@ public class BankDaoH2PresistImpl implements BankDao {
     }
 
 
+    /**
+     *
+     * @param opRecord
+     * @return
+     */
+    public boolean createOpRecord(OpRecord opRecord){
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(opRecord);
+            entityManager.getTransaction().commit();
+        } catch (Exception ignore){
+            logger.warn("Creating operation records falure", ignore);
+            return false;
+        } finally {
+            entityManager.close();
+        }
+
+        return true;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public List<Payment> getPayments(){
+        List<Payment> payments = null;
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            payments = entityManager.createQuery("from Payment", Payment.class).getResultList();
+            entityManager.getTransaction().commit();
+        } catch (Exception ignore){
+            logger.warn("Cant get list", ignore);
+            return new ArrayList<>();
+        } finally {
+            entityManager.close();
+        }
+        return payments;
+    }
+
+
+    /**
+     *
+     * @param cardUuid
+     * @return
+     */
+    public Account getAccountByCardUuid(String cardUuid){
+        Account account = null;
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+
+            Card cardPresist = entityManager.createQuery("from Card card where card.uuid = :value", Card.class)
+                    .setParameter("value", cardUuid)
+                    .getSingleResult();
+
+            if(cardPresist != null) {
+                account = cardPresist.getAccount();
+            }
+
+            entityManager.getTransaction().commit();
+        } catch (Exception ignore){
+            logger.warn("GetAccount falure", ignore);
+        } finally {
+            entityManager.close();
+        }
+
+        return account;
+    }
+
+
+    /**
+     *
+     * @param cardUuid
+     * @param diffBalance
+     */
     public void updateBalanceByCardUuid(String cardUuid, BigDecimal diffBalance){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
