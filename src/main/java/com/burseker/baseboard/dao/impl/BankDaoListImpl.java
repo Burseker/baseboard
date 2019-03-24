@@ -26,7 +26,7 @@ public class BankDaoListImpl implements BankDao{
     }
 
     @Override
-    public Customer getCustomer(int custId) {
+    public Customer getCustomer(long custId) {
         Customer res = null;
         for(Customer c : entityList){
             if(c.getCust_id() == custId)

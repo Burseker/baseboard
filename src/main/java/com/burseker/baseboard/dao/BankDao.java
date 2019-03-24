@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface BankDao {
-    Customer getCustomer(int custId);
+    Customer getCustomer(long custId);
     List<Customer> getCustomers();
     Page<Customer> getCustomersPage(Pageable pageable);
 

@@ -48,6 +48,18 @@ public class Account {
         return Objects.hash(name, balance);
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public String getName() {
         return name;
     }

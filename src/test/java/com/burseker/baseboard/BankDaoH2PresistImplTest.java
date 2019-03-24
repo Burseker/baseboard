@@ -47,6 +47,54 @@ public class BankDaoH2PresistImplTest {
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
     }
 
+    @Test
+    public void whenCreateSomeAccounts() {
+        Customer customer;
+
+        long custId = 1;
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+
+        customer = bankDaoH2Presist.getCustomer(custId);
+        assertThat(customer).isNotNull();
+        System.out.println(customer);
+        //customer.getAccounts().forEach(System.out::println);
+
+        for(Account acc : customer.getAccounts()){
+            System.out.println(acc);
+            if(acc.getCard() != null)
+                System.out.println(acc.getCard());
+        }
+
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+
+        Card card;
+        card = new Card();
+        card.setName("black card/debit");
+        card.setUuid("12340012");
+        card.setPin("9999");
+
+        Account account1 = new Account();
+        account1.setName("new born");
+        account1.setBalance(new BigDecimal(100500));
+        account1.setCard(card);
+        card.setAccount(account1);
+
+        bankDaoH2Presist.createAccount(custId, account1);
+
+        customer = bankDaoH2Presist.getCustomer(custId);
+        assertThat(customer).isNotNull();
+        System.out.println(customer);
+        //customer.getAccounts().forEach(System.out::println);
+
+        for(Account acc : customer.getAccounts()){
+            System.out.println(acc);
+            if(acc.getCard() != null)
+                System.out.println(acc.getCard());
+        }
+
+        for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
+    }
+
 
     @Test
     public void whenCreatingCard(){
@@ -111,7 +159,7 @@ public class BankDaoH2PresistImplTest {
     public void whenAlteringCardBalance() {
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
 
-        bankDaoH2Presist.updateBalanceByCardUuid("22330000", new BigDecimal(120));
+        bankDaoH2Presist.updateBalanceByCardUuid("22330000", new BigDecimal(120.3393));
 
         System.out.println("For cust_id = 1");
         List<Account> resList = bankDaoH2Presist.getAccounts(1L);
@@ -156,7 +204,6 @@ public class BankDaoH2PresistImplTest {
 
         for (int i = 0; i < 5; i++) System.out.println("-------------------------------------------");
     }
-
 
 
 }
